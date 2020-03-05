@@ -1,0 +1,262 @@
+
+
+<h1>VY - FAQ</h1>
+
+
+<div class="boxed">
+
+<div class="col-md-6 col-md-offset-1" *ngIf="visFAQ">
+  <div *ngIf="laster">Laster FAQ.....</div>
+
+
+  <div id="BillettHoved">
+
+    <h5 class="mb-0">
+      <a id="Billett" href="#KategoriEn" class="btn btn-link collapsed " data-toggle="collapse">Billetter</a>
+    </h5>
+
+
+    <br />
+
+    <div id="KategoriEn" class="card collapse" *ngFor="let item of listBillettFAQ; let i = index">
+
+      <div class="card-header collapsed" id="headingTwo">
+        <h5 class="mb-0">
+          <br />
+          <a href="#listBillettFAQ-{{ i }}" data-toggle="collapse">{{item.spmTekst}}</a>
+
+
+          <button class="btn btn-primary" (click)="TommelOpp(item.id)" style="font-size: 12px">Liker</button>
+
+          <button class="btn btn-danger" (click)="TommelNed(item.id)" style="font-size: 12px">Misliker</button>
+
+          <label> {{ item.likerKlikk }}</label>
+
+
+        </h5>
+      </div>
+      <br />
+      <div id="listBillettFAQ-{{ i }}" class="collapse" aria-labelledby="headingTwo" data-parent="#BillettHoved">
+        {{item.svarTekst}}
+      </div>
+
+    </div>
+  </div>
+
+
+
+
+  <div id="AvgangHoved">
+
+    <h5 class="mb-0">
+      <a id="Avgang" href="#KategoriTo" class="btn btn-link collapsed " data-toggle="collapse">Avgang</a>
+    </h5>
+
+
+
+
+    <br />
+
+    <div id="KategoriTo" class="card collapse" *ngFor="let item of listAvgangFAQ; let i = index">
+
+      <div class="card-header collapsed" id="headingTwo">
+        <h5 class="mb-0">
+
+          <br />
+          <a href="#listAvgangFAQ-{{ i }}" class="btn btn-link collapsed " data-toggle="collapse">{{item.spmTekst}}</a>
+
+          <button class="btn btn-primary" (click)="TommelOpp(item.id)" style="font-size: 12px">Liker</button>
+
+          <button class="btn btn-danger" (click)="TommelNed(item.id)" style="font-size: 12px">Misliker</button>
+
+          <label> {{ item.likerKlikk }}</label>
+
+        </h5>
+      </div>
+      <br />
+      <div id="listAvgangFAQ-{{ i }}" class="collapse" aria-labelledby="headingTwo" data-parent="#AvgangHoved">
+        {{item.svarTekst}}
+      </div>
+
+    </div>
+  </div>
+
+
+
+  <div id="AnnetHoved">
+
+    <h5 class="mb-0">
+      <a id="Annet" href="#KategoriTre" class="btn btn-link collapsed " data-toggle="collapse">Annet</a>
+    </h5>
+
+
+
+    <br />
+
+
+    <div id="KategoriTre" class="card collapse" *ngFor="let item of listAnnetFAQ; let i = index">
+
+      <div class="card-header collapsed" id="headingTwo">
+        <h5 class="mb-0">
+          <br />
+          <a href="#listAnnetFAQ-{{ i }}" class="btn btn-link collapsed " data-toggle="collapse">{{item.spmTekst}}</a>
+
+          <button class="btn btn-primary" (click)="TommelOpp(item.id)" style="font-size: 12px">Liker</button>
+
+          <button class="btn btn-danger" (click)="TommelNed(item.id)" style="font-size: 12px">Misliker</button>
+
+          <label> {{ item.likerKlikk }}</label>
+
+
+        </h5>
+      </div>
+      <br />
+      <div id="listAnnetFAQ-{{ i }}" class="collapse" aria-labelledby="headingTwo" data-parent="#AnnetHoved">
+        {{item.svarTekst}}
+      </div>
+
+    </div>
+  </div>
+
+
+  <br />
+
+  <button class='btn btn-primary btn-block mb-3' (click)='visStilteSpm()'>Se stilte spørsmål</button> 
+  <button class="btn btn-dark btn-block" (click)='visNySpmSkjema()'>Spør et nytt spørsmål</button>
+
+</div>
+</div>
+
+
+
+
+
+
+  <div class="col-sm-4 col-sm-offset-2" *ngIf="visSkjema" id="skjemaUtfylling">
+
+    <h2>Spørr et nytt spørsmål</h2>
+
+    <form [formGroup]="skjema" (ngSubmit)="vedSubmit()">
+
+
+      <input class="form-control" formControlName="id" type="hidden"/>
+
+      <div class="form-group">
+        <label id="Navn">Navn</label>
+        <input class="form-control" formControlName="navn"/>
+        <p class="alert alert-warning" [hidden]="skjema.controls.navn.valid || (skjema.controls.navn.pristine && !submitted)">
+          Navn er obligatorisk.
+        </p>
+      </div>
+
+      <div class="form-group">
+        <label>Telefonnummer</label>
+        <input class="form-control" formControlName="tlf"/>
+        <p class="alert alert-warning" [hidden]="skjema.controls.tlf.valid || (skjema.controls.tlf.pristine && !submitted)">
+          Telefonnummeret er obligatorisk, kun 8 siffer er tillatt.
+        </p>
+      </div>
+
+
+      <div class="form-group">
+        <label>Epost</label>
+        <input class="form-control" formControlName="epost"/>
+        <p class="alert alert-warning" [hidden]="skjema.controls.epost.valid || (skjema.controls.epost.pristine && !submitted)">
+          Epost er obligatorisk.
+        </p>
+      </div>
+
+      <div class="form-group">
+        <label>Spørsmål</label>
+        <input class="form-control" formControlName="sporsmol"/>
+        <p class="alert alert-warning" [hidden]="skjema.controls.sporsmol.valid || (skjema.controls.sporsmol.pristine && !submitted)">
+          Spørsmål er obligatorisk.
+        </p>
+      </div>
+
+      <div class="form-group">
+        <label>Velg kategori</label>
+        <select class="" formControlName="kategoriForNyeSpm">
+          <p class="alert alert-warning" [hidden]="skjema.controls.kategoriForNyeSpm.valid || (skjema.controls.kategoriForNyeSpm.pristine && !submitted)">
+            Kategori er obligatorisk.
+          </p>
+          <option value="Billetter">Billetter</option>
+          <option value="Priser"> Priser</option>
+          <option value="Annet">Annet</option>
+        </select>
+      </div>
+
+
+
+      <div class="form-group">
+        <button type="submit" [disabled]="!skjema.valid" class="btn btn-success">Registrer spørsmålet</button>
+        <button class="btn btn-default" (click)="tilbakeTilFAQListe()">Tilbake</button>
+      </div>
+
+    </form>
+  </div>
+
+
+
+
+
+  <div>
+    <div class="col-md-6 col-md-offset-2" id="listAlleSpm" *ngIf="visNyeSpm">
+
+      <div id="list">
+
+        <h2>Stilte spørsmål</h2>
+
+
+        <div *ngFor="let nyeSpm of listNyeSpm; let i = index">
+
+          <div class="card-header collapsed" id="headingThree">
+
+            <table>
+
+              <tr>
+                <th style="width: 50%">Navn</th>
+                <th style="width: 60%">Epost</th>
+                <th style="width: 60%">Telefonnummer</th>
+              </tr>
+            </table>
+
+
+            <a href="#listSpm-{{ i }}" class="btn btn-light " data-toggle="collapse">
+
+              <table>
+
+                <tr>
+                  <td class="btn btn-link"> {{nyeSpm.navn}} </td>
+                  <td style="width: 80%;" class="btn btn-link"> {{ nyeSpm.epost }}</td>
+                  <td style="width: 22%" class="btn btn-link"> {{ nyeSpm.tlf }} </td>
+                </tr>
+
+              </table>
+
+            </a>
+
+
+          </div>
+          <br />
+          <div id="listSpm-{{ i }}" class="collapse" aria-labelledby="headingThree" data-parent="#list">
+            <th>Kategori:</th> {{nyeSpm.kategoriForNyeSpm}}
+          </div>
+          <div id="listSpm-{{ i }}" class="collapse" aria-labelledby="headingThree" data-parent="#list">
+            <th>Spørsmål tekst:</th> {{nyeSpm.spmTekst}}
+          </div>
+
+        </div>
+      </div>
+
+
+
+
+      <div class="form-group">
+
+        <button class='btn btn-primary mb-3' style="width: 40%"  (click)='Forside()'>Forside</button>
+        <button class='btn btn-dark btn-block' style="width: 40%" (click)='visNySpmSkjema()'>Spør et nytt spørsmål</button>
+      </div>
+    </div>
+
+  </div>
